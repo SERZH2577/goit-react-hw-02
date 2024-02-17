@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Description from '../Description/Description';
 import Feedback from '../Feedback/Feedback';
 import Options from '../Options/Options';
+import Notification from '../Notification/Notification';
 import './App.css';
 
 const getInitialClicks = () => {
@@ -26,8 +27,8 @@ export default function App() {
     localStorage.setItem('clicks', JSON.stringify(clicks));
   }, [clicks]);
 
-  const handleClick = key => {
-    setClicks({ ...clicks, [key]: clicks[key] + 1 });
+  const updateFeedback = feedbackType => {
+    setClicks({ ...clicks, [feedbackType]: clicks[feedbackType] + 1 });
   };
 
   const handelReset = () => {
@@ -38,15 +39,31 @@ export default function App() {
     });
   };
 
+  const totalFeedback = clicks.good + clicks.neutral + clicks.bad;
+  const percents = Math.round(
+    ((clicks.good + clicks.neutral) / totalFeedback) * 100,
+  );
+  const isHidden =
+    clicks.good === 0 && clicks.neutral === 0 && clicks.bad === 0;
+
   return (
     <>
       <Description />
       <Options
         clicks={clicks}
-        onAddsFeedback={handleClick}
+        onAddsFeedback={updateFeedback}
         onReset={handelReset}
+        isHidden={isHidden}
       />
-      <Feedback value={clicks} />
+      {!isHidden ? (
+        <Feedback
+          value={clicks}
+          totalFeedback={totalFeedback}
+          percents={percents}
+        />
+      ) : (
+        <Notification />
+      )}
     </>
   );
 }

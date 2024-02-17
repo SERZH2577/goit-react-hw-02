@@ -1,16 +1,11 @@
 import css from './Feedback.module.css';
 
-export default function Feedback({ value: { good, neutral, bad } }) {
-  const total = good + neutral + bad;
-  const percents = (good + neutral) / (total / 100);
-
-  const initialMarkup = (
-    <div className={css.container}>
-      <p>No feedback yet</p>
-    </div>
-  );
-
-  const feedbackMarkup = (
+export default function Feedback({
+  value: { good, neutral, bad },
+  totalFeedback,
+  percents,
+}) {
+  return (
     <div className={css.container}>
       <ul className={css.list}>
         <li className={css.item}>
@@ -23,14 +18,12 @@ export default function Feedback({ value: { good, neutral, bad } }) {
           <p>Bad: {bad}</p>
         </li>
         <li className={css.item}>
-          <p>Total: {total}</p>
+          <p>Total: {totalFeedback}</p>
         </li>
         <li className={css.item}>
-          <p>Positive: {Math.round(percents)}%</p>
+          <p>Positive: {percents}%</p>
         </li>
       </ul>
     </div>
   );
-
-  return good || neutral || bad ? feedbackMarkup : initialMarkup;
 }

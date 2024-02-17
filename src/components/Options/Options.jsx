@@ -1,12 +1,6 @@
 import css from './Options.module.css';
 
-export default function Options({
-  clicks: { good, neutral, bad },
-  onAddsFeedback,
-  onReset,
-}) {
-  const isHidden = good === 0 && neutral === 0 && bad === 0;
-
+export default function Options({ onAddsFeedback, onReset, isHidden }) {
   return (
     <div className={css.container}>
       <button
