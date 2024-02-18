@@ -1,12 +1,14 @@
 import css from './Options.module.css';
 
-export default function Options({ onAddsFeedback, onReset, isHidden }) {
+const feedbackType = { good: 'good', neutral: 'neutral', bad: 'bad' };
+
+export default function Options({ onAddFeedback, onReset, isHidden }) {
   return (
     <div className={css.container}>
       <button
         className={css.btn}
         onClick={() => {
-          onAddsFeedback('good');
+          onAddFeedback(feedbackType.good);
         }}
       >
         Good
@@ -15,7 +17,7 @@ export default function Options({ onAddsFeedback, onReset, isHidden }) {
       <button
         className={css.btn}
         onClick={() => {
-          onAddsFeedback('neutral');
+          onAddFeedback(feedbackType.neutral);
         }}
       >
         Neutral
@@ -24,7 +26,7 @@ export default function Options({ onAddsFeedback, onReset, isHidden }) {
       <button
         className={css.btn}
         onClick={() => {
-          onAddsFeedback('bad');
+          onAddFeedback(feedbackType.bad);
         }}
       >
         Bad

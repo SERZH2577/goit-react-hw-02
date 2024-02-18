@@ -1,13 +1,10 @@
 import css from './Description.module.css';
 
-export default function Description() {
+export default function Description({ titleSection, description }) {
   return (
     <div className={css.container}>
-      <h1 className={css.title}>Sip Happens Café</h1>
-      <p className={css.description}>
-        Please leave your feedback about our service by selecting one of the
-        options below.
-      </p>
+      <h1 className={css.title}>{titleSection}</h1>
+      <p className={css.description}>{description}</p>
     </div>
   );
 }

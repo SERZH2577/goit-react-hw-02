@@ -31,7 +31,7 @@ export default function App() {
     setClicks({ ...clicks, [feedbackType]: clicks[feedbackType] + 1 });
   };
 
-  const handelReset = () => {
+  const handleReset = () => {
     setClicks({
       good: 0,
       neutral: 0,
@@ -46,23 +46,28 @@ export default function App() {
   const isHidden =
     clicks.good === 0 && clicks.neutral === 0 && clicks.bad === 0;
 
+  const message = 'No feedback yet';
+  const titleSection = 'Sip Happens Café';
+  const description =
+    'Please leave your feedback about our service by selecting one of the options below.';
+
   return (
     <>
-      <Description />
+      <Description description={description} titleSection={titleSection} />
       <Options
         clicks={clicks}
-        onAddsFeedback={updateFeedback}
-        onReset={handelReset}
+        onAddFeedback={updateFeedback}
+        onReset={handleReset}
         isHidden={isHidden}
       />
       {!isHidden ? (
         <Feedback
           value={clicks}
           totalFeedback={totalFeedback}
-          percents={percents}
+          percents={totalFeedback !== 0 ? percents : 0}
         />
       ) : (
-        <Notification />
+        <Notification message={message} />
       )}
     </>
   );
